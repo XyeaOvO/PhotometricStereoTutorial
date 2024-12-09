@@ -114,11 +114,13 @@ class PS(object):
 
         #############################################
 
-        print("shape of M: ", self.M.shape)
-        print("shape of L: ", self.L.shape)
-        self.N = np.linalg.lstsq(self.M.T, self.L.T, rcond=None)[0]
+        print("shape of M: ", self.M.T.shape)
+        print("shape of L: ", self.L.T.shape)
+        self.N = np.linalg.lstsq(self.L.T, self.M.T, rcond=None)[0]
+        self.N = self.N.T
         self.N = normalize(self.N)
 
+        print("shape of N: ", self.N.shape)
         if self.background_ind is not None:
             for i in range(self.N.shape[1]):
                 self.N[self.background_ind, i] = 0
