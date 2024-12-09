@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import sklearn
 
 import psutil
 import numpy as np
@@ -114,8 +114,11 @@ class PS(object):
 
         #############################################
 
+        print("shape of M: ", self.M.shape)
+        print("shape of L: ", self.L.shape)
+        self.N = np.linalg.lstsq(self.M.T, self.L.T, rcond=None)[0]
+        self.N = normalize(self.N)
+
         if self.background_ind is not None:
             for i in range(self.N.shape[1]):
                 self.N[self.background_ind, i] = 0
-
-
